@@ -93,12 +93,14 @@ passport.use(new LocalStrategy(User.authenticate()));//app.use() requires a midd
 passport.serializeUser(User.serializeUser());// serialize user means to store information of user in session
 passport.deserializeUser(User.deserializeUser());// deserialize means to remove user info from session
 
+
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;// abhi jis bhi user ka session chal raha hai
     next();
 }); 
+
 
 // app.get("/demouser", async(req,res)=>{
 //     let fakeUser = new User({
@@ -128,6 +130,7 @@ app.use("/", userRouter);
 //     res.send("successful testing");
 
 // });
+
 app.all("*", (req,res,next)=>{// for all incoming requests except above all 
     next(new ExpressError(404,"page not found"));
 });   
